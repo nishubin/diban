@@ -1,0 +1,336 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nishubin.work.dao.DedeArctypeMapper">
+  <resultMap id="BaseResultMap" type="com.nishubin.work.model.DedeArctype">
+    <id column="id" jdbcType="BIGINT" property="id" />
+    <result column="topid" jdbcType="BIGINT" property="topid" />
+    <result column="sortrank" jdbcType="SMALLINT" property="sortrank" />
+    <result column="typename" jdbcType="CHAR" property="typename" />
+    <result column="typedir" jdbcType="CHAR" property="typedir" />
+    <result column="ispart" jdbcType="SMALLINT" property="ispart" />
+    <result column="seotitle" jdbcType="VARCHAR" property="seotitle" />
+    <result column="ishidden" jdbcType="SMALLINT" property="ishidden" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.nishubin.work.model.DedeArctype">
+    <result column="content" jdbcType="LONGVARCHAR" property="content" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    id, topid, sortrank, typename, typedir, ispart, seotitle, ishidden,content
+  </sql>
+  <sql id="Blob_Column_List">
+    content
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.nishubin.work.model.DedeArctypeExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dede_arctype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.nishubin.work.model.DedeArctypeExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dede_arctype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+    <if test="limit != null">
+      <if test="offset != null">
+        limit ${offset}, ${limit}
+      </if>
+      <if test="offset == null">
+        limit ${limit}
+      </if>
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Long" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dede_arctype
+    where id = #{id,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long">
+    delete from dede_arctype
+    where id = #{id,jdbcType=BIGINT}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nishubin.work.model.DedeArctypeExample">
+    delete from dede_arctype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nishubin.work.model.DedeArctype">
+    insert into dede_arctype (id, topid, sortrank, 
+      typename, typedir, ispart, 
+      seotitle, ishidden, content
+      )
+    values (#{id,jdbcType=BIGINT}, #{topid,jdbcType=BIGINT}, #{sortrank,jdbcType=SMALLINT}, 
+      #{typename,jdbcType=CHAR}, #{typedir,jdbcType=CHAR}, #{ispart,jdbcType=SMALLINT}, 
+      #{seotitle,jdbcType=VARCHAR}, #{ishidden,jdbcType=SMALLINT}, #{content,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nishubin.work.model.DedeArctype">
+    insert into dede_arctype
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="topid != null">
+        topid,
+      </if>
+      <if test="sortrank != null">
+        sortrank,
+      </if>
+      <if test="typename != null">
+        typename,
+      </if>
+      <if test="typedir != null">
+        typedir,
+      </if>
+      <if test="ispart != null">
+        ispart,
+      </if>
+      <if test="seotitle != null">
+        seotitle,
+      </if>
+      <if test="ishidden != null">
+        ishidden,
+      </if>
+      <if test="content != null">
+        content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=BIGINT},
+      </if>
+      <if test="topid != null">
+        #{topid,jdbcType=BIGINT},
+      </if>
+      <if test="sortrank != null">
+        #{sortrank,jdbcType=SMALLINT},
+      </if>
+      <if test="typename != null">
+        #{typename,jdbcType=CHAR},
+      </if>
+      <if test="typedir != null">
+        #{typedir,jdbcType=CHAR},
+      </if>
+      <if test="ispart != null">
+        #{ispart,jdbcType=SMALLINT},
+      </if>
+      <if test="seotitle != null">
+        #{seotitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ishidden != null">
+        #{ishidden,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nishubin.work.model.DedeArctypeExample" resultType="java.lang.Long">
+    select count(*) from dede_arctype
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dede_arctype
+    <set>
+      <if test="record.id != null">
+        id = #{record.id,jdbcType=BIGINT},
+      </if>
+      <if test="record.topid != null">
+        topid = #{record.topid,jdbcType=BIGINT},
+      </if>
+      <if test="record.sortrank != null">
+        sortrank = #{record.sortrank,jdbcType=SMALLINT},
+      </if>
+      <if test="record.typename != null">
+        typename = #{record.typename,jdbcType=CHAR},
+      </if>
+      <if test="record.typedir != null">
+        typedir = #{record.typedir,jdbcType=CHAR},
+      </if>
+      <if test="record.ispart != null">
+        ispart = #{record.ispart,jdbcType=SMALLINT},
+      </if>
+      <if test="record.seotitle != null">
+        seotitle = #{record.seotitle,jdbcType=VARCHAR},
+      </if>
+      <if test="record.ishidden != null">
+        ishidden = #{record.ishidden,jdbcType=SMALLINT},
+      </if>
+      <if test="record.content != null">
+        content = #{record.content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update dede_arctype
+    set id = #{record.id,jdbcType=BIGINT},
+      topid = #{record.topid,jdbcType=BIGINT},
+      sortrank = #{record.sortrank,jdbcType=SMALLINT},
+      typename = #{record.typename,jdbcType=CHAR},
+      typedir = #{record.typedir,jdbcType=CHAR},
+      ispart = #{record.ispart,jdbcType=SMALLINT},
+      seotitle = #{record.seotitle,jdbcType=VARCHAR},
+      ishidden = #{record.ishidden,jdbcType=SMALLINT},
+      content = #{record.content,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dede_arctype
+    set id = #{record.id,jdbcType=BIGINT},
+      topid = #{record.topid,jdbcType=BIGINT},
+      sortrank = #{record.sortrank,jdbcType=SMALLINT},
+      typename = #{record.typename,jdbcType=CHAR},
+      typedir = #{record.typedir,jdbcType=CHAR},
+      ispart = #{record.ispart,jdbcType=SMALLINT},
+      seotitle = #{record.seotitle,jdbcType=VARCHAR},
+      ishidden = #{record.ishidden,jdbcType=SMALLINT}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nishubin.work.model.DedeArctype">
+    update dede_arctype
+    <set>
+      <if test="topid != null">
+        topid = #{topid,jdbcType=BIGINT},
+      </if>
+      <if test="sortrank != null">
+        sortrank = #{sortrank,jdbcType=SMALLINT},
+      </if>
+      <if test="typename != null">
+        typename = #{typename,jdbcType=CHAR},
+      </if>
+      <if test="typedir != null">
+        typedir = #{typedir,jdbcType=CHAR},
+      </if>
+      <if test="ispart != null">
+        ispart = #{ispart,jdbcType=SMALLINT},
+      </if>
+      <if test="seotitle != null">
+        seotitle = #{seotitle,jdbcType=VARCHAR},
+      </if>
+      <if test="ishidden != null">
+        ishidden = #{ishidden,jdbcType=SMALLINT},
+      </if>
+      <if test="content != null">
+        content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nishubin.work.model.DedeArctype">
+    update dede_arctype
+    set topid = #{topid,jdbcType=BIGINT},
+      sortrank = #{sortrank,jdbcType=SMALLINT},
+      typename = #{typename,jdbcType=CHAR},
+      typedir = #{typedir,jdbcType=CHAR},
+      ispart = #{ispart,jdbcType=SMALLINT},
+      seotitle = #{seotitle,jdbcType=VARCHAR},
+      ishidden = #{ishidden,jdbcType=SMALLINT},
+      content = #{content,jdbcType=LONGVARCHAR}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nishubin.work.model.DedeArctype">
+    update dede_arctype
+    set topid = #{topid,jdbcType=BIGINT},
+      sortrank = #{sortrank,jdbcType=SMALLINT},
+      typename = #{typename,jdbcType=CHAR},
+      typedir = #{typedir,jdbcType=CHAR},
+      ispart = #{ispart,jdbcType=SMALLINT},
+      seotitle = #{seotitle,jdbcType=VARCHAR},
+      ishidden = #{ishidden,jdbcType=SMALLINT}
+    where id = #{id,jdbcType=BIGINT}
+  </update>
+     <select id="selectAll" resultMap="ResultMapWithBLOBs">
+    select
+    <include refid="Base_Column_List" />
+    from dede_arctype
+  </select>
+</mapper>

@@ -1,0 +1,21 @@
+
+<section class="full-page-title-wrap clearfix" skinobjectzone="menu_2669">
+  <h2> $arctye.typename</h2>
+  <div class="full-page-title" ><i class="mark-left"></i> <i class="mark-right"></i></div>
+</section>
+<!-- S page-menu -->
+<section class="full-page-menu" skinobjectzone="menu_2745">
+  <div class="full-page-menu-content">
+    <div class="page-width">
+      <ul class="clearfix" >
+     	 #foreach( $childInfo in $childArcTyes)
+     	 #if($childInfo.id ==$childArcTye.id)
+     	 <li class='current'><a href="$childInfo.typedir">$childInfo.typename</a></li>
+     	 #else
+        <li class=""><a href="$childInfo.typedir">$childInfo.typename</a></li>
+        #end
+       #end
+      </ul>
+      <!-- 没有子菜单时输出 --></div>
+  </div>
+</section>

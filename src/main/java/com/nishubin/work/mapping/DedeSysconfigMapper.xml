@@ -1,0 +1,277 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.nishubin.work.dao.DedeSysconfigMapper">
+  <resultMap id="BaseResultMap" type="com.nishubin.work.model.DedeSysconfig">
+    <id column="varname" jdbcType="VARCHAR" property="varname" />
+    <result column="aid" jdbcType="SMALLINT" property="aid" />
+    <result column="info" jdbcType="VARCHAR" property="info" />
+    <result column="groupid" jdbcType="SMALLINT" property="groupid" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="value" jdbcType="VARCHAR" property="value" />
+  </resultMap>
+  <resultMap extends="BaseResultMap" id="ResultMapWithBLOBs" type="com.nishubin.work.model.DedeSysconfig">
+    <result column="value" jdbcType="LONGVARCHAR" property="value" />
+  </resultMap>
+  <sql id="Example_Where_Clause">
+    <where>
+      <foreach collection="oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause">
+    <where>
+      <foreach collection="example.oredCriteria" item="criteria" separator="or">
+        <if test="criteria.valid">
+          <trim prefix="(" prefixOverrides="and" suffix=")">
+            <foreach collection="criteria.criteria" item="criterion">
+              <choose>
+                <when test="criterion.noValue">
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue">
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue">
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue">
+                  and ${criterion.condition}
+                  <foreach close=")" collection="criterion.value" item="listItem" open="(" separator=",">
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List">
+    varname, aid, info, groupid, type,value
+  </sql>
+  <sql id="Blob_Column_List">
+    value
+  </sql>
+  <select id="selectByExampleWithBLOBs" parameterType="com.nishubin.work.model.DedeSysconfigExample" resultMap="ResultMapWithBLOBs">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dede_sysconfig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByExample" parameterType="com.nishubin.work.model.DedeSysconfigExample" resultMap="BaseResultMap">
+    select
+    <if test="distinct">
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from dede_sysconfig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null">
+      order by ${orderByClause}
+    </if>
+  </select>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="ResultMapWithBLOBs">
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from dede_sysconfig
+    where varname = #{varname,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from dede_sysconfig
+    where varname = #{varname,jdbcType=VARCHAR}
+  </delete>
+  <delete id="deleteByExample" parameterType="com.nishubin.work.model.DedeSysconfigExample">
+    delete from dede_sysconfig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.nishubin.work.model.DedeSysconfig">
+    insert into dede_sysconfig (varname, aid, info, 
+      groupid, type, value
+      )
+    values (#{varname,jdbcType=VARCHAR}, #{aid,jdbcType=SMALLINT}, #{info,jdbcType=VARCHAR}, 
+      #{groupid,jdbcType=SMALLINT}, #{type,jdbcType=VARCHAR}, #{value,jdbcType=LONGVARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.nishubin.work.model.DedeSysconfig">
+    insert into dede_sysconfig
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="varname != null">
+        varname,
+      </if>
+      <if test="aid != null">
+        aid,
+      </if>
+      <if test="info != null">
+        info,
+      </if>
+      <if test="groupid != null">
+        groupid,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="value != null">
+        value,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="varname != null">
+        #{varname,jdbcType=VARCHAR},
+      </if>
+      <if test="aid != null">
+        #{aid,jdbcType=SMALLINT},
+      </if>
+      <if test="info != null">
+        #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        #{groupid,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        #{value,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.nishubin.work.model.DedeSysconfigExample" resultType="java.lang.Long">
+    select count(*) from dede_sysconfig
+    <if test="_parameter != null">
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map">
+    update dede_sysconfig
+    <set>
+      <if test="record.varname != null">
+        varname = #{record.varname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.aid != null">
+        aid = #{record.aid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.info != null">
+        info = #{record.info,jdbcType=VARCHAR},
+      </if>
+      <if test="record.groupid != null">
+        groupid = #{record.groupid,jdbcType=SMALLINT},
+      </if>
+      <if test="record.type != null">
+        type = #{record.type,jdbcType=VARCHAR},
+      </if>
+      <if test="record.value != null">
+        value = #{record.value,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExampleWithBLOBs" parameterType="map">
+    update dede_sysconfig
+    set varname = #{record.varname,jdbcType=VARCHAR},
+      aid = #{record.aid,jdbcType=SMALLINT},
+      info = #{record.info,jdbcType=VARCHAR},
+      groupid = #{record.groupid,jdbcType=SMALLINT},
+      type = #{record.type,jdbcType=VARCHAR},
+      value = #{record.value,jdbcType=LONGVARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map">
+    update dede_sysconfig
+    set varname = #{record.varname,jdbcType=VARCHAR},
+      aid = #{record.aid,jdbcType=SMALLINT},
+      info = #{record.info,jdbcType=VARCHAR},
+      groupid = #{record.groupid,jdbcType=SMALLINT},
+      type = #{record.type,jdbcType=VARCHAR}
+    <if test="_parameter != null">
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByPrimaryKeySelective" parameterType="com.nishubin.work.model.DedeSysconfig">
+    update dede_sysconfig
+    <set>
+      <if test="aid != null">
+        aid = #{aid,jdbcType=SMALLINT},
+      </if>
+      <if test="info != null">
+        info = #{info,jdbcType=VARCHAR},
+      </if>
+      <if test="groupid != null">
+        groupid = #{groupid,jdbcType=SMALLINT},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="value != null">
+        value = #{value,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where varname = #{varname,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.nishubin.work.model.DedeSysconfig">
+    update dede_sysconfig
+    set aid = #{aid,jdbcType=SMALLINT},
+      info = #{info,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=SMALLINT},
+      type = #{type,jdbcType=VARCHAR},
+      value = #{value,jdbcType=LONGVARCHAR}
+    where varname = #{varname,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.nishubin.work.model.DedeSysconfig">
+    update dede_sysconfig
+    set aid = #{aid,jdbcType=SMALLINT},
+      info = #{info,jdbcType=VARCHAR},
+      groupid = #{groupid,jdbcType=SMALLINT},
+      type = #{type,jdbcType=VARCHAR}
+    where varname = #{varname,jdbcType=VARCHAR}
+  </update>
+   <select id="selectAll" resultMap="BaseResultMap">
+    select
+    <include refid="Base_Column_List" />
+    from dede_sysconfig
+  </select>
+  
+</mapper>
