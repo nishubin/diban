@@ -18,7 +18,7 @@ public class UserController {
 	private HttpServletRequest request;
 	@Autowired
 	private DedeAdminService DedeAdminService;
-	@RequestMapping(path="/user/login")
+	@RequestMapping(path="/cms/login")
 	public String login(String account, String password,Map<String, Object> model) {
 		RespJson resp = DedeAdminService.login(account, password);
 		model.put("resp", resp);

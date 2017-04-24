@@ -169,10 +169,10 @@ function loadPage(url) {
       $.mainContent.load($.subPagesDirectory + url, null, function (responseText) {
         window.location.hash = url;
       }).delay(250).animate({ opacity : 1 }, 0);
-    },
+    }/*,
     error : function() {
       window.location.href = $.page404;
-    }
+    }*/
   });
 }
 
