@@ -6,8 +6,8 @@ package com.nishubin.work.bean.resp;
  *
  */
 public class RespJson {
-	private String msg;
-	private String code;
+	private String msg = "请求成功";
+	private String code = "200";
 	private Object data;
 	public String getMsg() {
 		return msg;
