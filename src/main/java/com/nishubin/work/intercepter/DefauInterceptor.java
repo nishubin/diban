@@ -17,7 +17,11 @@ public class DefauInterceptor extends HandlerInterceptorAdapter  {
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
-		
+		if(request.getSession().getAttribute("admin") == null&&request.getServletPath().startsWith("/cms")){
+			if(!request.getServletPath().startsWith("/cms/login")){
+				response.sendRedirect("/cms/login");
+			}
+		}
 		if(request.getSession().getAttribute("basepath") == null) {
 			String path = request.getContextPath();  
 			String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";  
@@ -32,6 +36,7 @@ public class DefauInterceptor extends HandlerInterceptorAdapter  {
 			 SysConfigs sysConfigs = dedeSysConfigService.loadData();
 			request.getSession(true).setAttribute("sysConfig",sysConfigs);
 		}
+		
 		return true;
 	}
 	
