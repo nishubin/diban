@@ -51,6 +51,10 @@
 			<groupId>mysql</groupId>
 			<artifactId>mysql-connector-java</artifactId>
 		</dependency>
+		<dependency>
+    		<groupId>org.ehcache</groupId>
+    		<artifactId>ehcache</artifactId>
+		</dependency>
 	</dependencies>
 
 	<!-- <dependencyManagement>
