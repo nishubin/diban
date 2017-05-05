@@ -6,7 +6,7 @@ public class PagePlug<T> {
 	/**
 	 * 总条数
 	 */
-	private Integer total;
+	private Long total;
 	/**
 	 * 数据
 	 */
@@ -14,21 +14,21 @@ public class PagePlug<T> {
 	/**
 	 * 总页数
 	 */
-	private Integer pageSize;
+	private Long pageSize;
 	/**
 	 * 当前页
 	 */
 	private Integer page;
-	public Integer getTotal() {
+	public Long getTotal() {
 		return total;
 	}
-	public void setTotal(Integer total) {
+	public void setTotal(Long total) {
 		this.total = total;
 	}
-	public Integer getPageSize() {
+	public Long getPageSize() {
 		return pageSize;
 	}
-	public void setPageSize(Integer pageSize) {
+	public void setPageSize(Long pageSize) {
 		this.pageSize = pageSize;
 	}
 	public Integer getPage() {

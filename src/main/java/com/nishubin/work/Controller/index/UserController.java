@@ -10,12 +10,15 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nishubin.work.bean.resp.RespJson;
+import com.nishubin.work.model.DedeAdmin;
 import com.nishubin.work.service.DedeAdminService;
 
 @Controller
 public class UserController {
+	
 	@Autowired
 	private HttpServletRequest request;
+	
 	@Autowired
 	private DedeAdminService DedeAdminService;
 	@RequestMapping("/cms/login")
@@ -29,9 +32,22 @@ public class UserController {
 			return "/cms/login";
 		}
 	}
-	@RequestMapping("/user/userList")
+	
+	@RequestMapping("/cms/listUser")
 	@ResponseBody  
 	public RespJson queryUserS(String account, String name){
 		return DedeAdminService.queryDedeAdmins(account, name);
+	}
+	
+	@RequestMapping("/cms/createUser")
+	@ResponseBody  
+	public RespJson createUserS(DedeAdmin admin){
+		return DedeAdminService.createDedeAdmins(admin);
+	}
+	
+	@RequestMapping("/cms/modifyUser")
+	@ResponseBody
+	public RespJson modifyUser(DedeAdmin admin){
+		return DedeAdminService.modifyAdmin(admin);
 	}
 }
