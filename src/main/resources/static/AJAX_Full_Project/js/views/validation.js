@@ -1,4 +1,5 @@
 $(function (){
+	alert(GetQueryString("arcTypeId"));
   $.validator.setDefaults( {
     submitHandler: function () {
       alert( 'submitted!' );

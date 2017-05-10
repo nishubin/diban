@@ -17,11 +17,9 @@ public class ArctypeController {
 	@Autowired
 	private DedeArctypeService DedeArctypeService;
 	
-	private Integer page=1;
-	private Integer rows=10;
 	@RequestMapping("/cms/listArctype")
 	@ResponseBody  
-	public PagePlug<DedeArctype> queryArctypeS(DedeArctype Arctype){
+	public PagePlug<DedeArctype> queryArctypeS(DedeArctype Arctype,Integer page,Integer rows){
 		return DedeArctypeService.queryDedeArctype(Arctype,page,rows);
 	}
 	
@@ -37,26 +35,6 @@ public class ArctypeController {
 	@ResponseBody
 	public RespJson seleteArctype(Integer arctypeId){
 		return DedeArctypeService.selectArctype(arctypeId);
-	}
-
-
-	public Integer getPage() {
-		return page;
-	}
-
-
-	public void setPage(Integer page) {
-		this.page = page;
-	}
-
-
-	public Integer getRows() {
-		return rows;
-	}
-
-
-	public void setRows(Integer rows) {
-		this.rows = rows;
 	}
 	
 }

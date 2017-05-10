@@ -25,14 +25,17 @@ public class DedeArctypeService {
 		PagePlug<DedeArctype> pageplug = new PagePlug<DedeArctype>();
 		DedeArctypeExample example = new DedeArctypeExample();
 		DedeArctypeExample.Criteria criteria = example.createCriteria();
-		example.setLimit(rows);
-		example.setOffset((page-1)*rows);
 		if(!StringUtils.isEmpty(Arctype.getTypename())){
 			criteria.andTypenameLike("%"+Arctype.getTypename()+"%");
 		}
+		if(page!=null&&page>0&&rows!=null&&rows>0){
+			example.setLimit(rows);
+			example.setOffset((page-1)*rows);
+			pageplug.setPageSize(pageplug.getTotal()%rows==0?pageplug.getTotal()/rows:pageplug.getTotal()/rows+1);
+		}
 		pageplug.setData(dedeArctypeMapper.selectByExample(example));
 		pageplug.setTotal(dedeArctypeMapper.countByExample(example));
-		pageplug.setPageSize(pageplug.getTotal()%rows==0?pageplug.getTotal()/rows:pageplug.getTotal()/rows+1);
+		
 		return pageplug;
 	}
 	/**

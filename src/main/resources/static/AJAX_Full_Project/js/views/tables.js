@@ -12,21 +12,17 @@ $(function(){
   var t = $('.datatable').DataTable({
 	  "sDom": "<'row mb-1'<'col-sm-6'l><'col-sm-6'f>r>t<'row'<'col-sm-6'i><'col-sm-6 center'p>>",
 	    renderer: 'bootstrap',
-	    serverSide: true,  //启用服务器端分页
-	    searching: false,  //禁用原生搜索
 	    ordering:false,   //禁止排序
 	  ajax: {
           //指定数据源
 		  type: "POST",
           url: "/cms/listArctype",
       },
-      //每页显示三条数据
-      pageLength: 3,
       columns: [{
-          "data": "typename" //此列不绑定数据源，用来显示序号
+          "data": "id" //此列不绑定数据源，用来显示序号
       },
       {
-          "data": "topid"
+          "data": "typename"
       },
       {
           "data": "content"
@@ -37,19 +33,22 @@ $(function(){
     	  "data": "ishidden"
       }
       ],
-     /* "columnDefs": [{
-          // "visible": false,
-          //"targets": 0
+      "columnDefs": [{
+          "render": function(data, type, row, meta) {
+        	  if(row.id==0){
+        		  return "显示";
+        	  }else{
+        		  return "隐藏";
+        	  }
+          },
+      	"targets": 3	
       },
       {
           "render": function(data, type, row, meta) {
-              //渲染 把数据源中的标题和url组成超链接
-              return '<a href="' + data + '" target="_blank">' + row.title + '</a>';
+        		  return "<button class='btn btn-outline-success' onclick=loadPage('forms/validation.html?arcTypeId="+row.id+"')>修改</button>";
           },
-          //指定是第三列
-          "targets": 2
+      	"targets": 4	
       }]
-*/
   });
 /*
   //更换数据源（相同格式，但是数据内容不同）
