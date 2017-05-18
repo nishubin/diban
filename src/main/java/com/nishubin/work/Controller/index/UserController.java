@@ -1,5 +1,6 @@
 package com.nishubin.work.Controller.index;
 
+import java.util.HashMap;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -12,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.nishubin.work.bean.resp.RespJson;
 import com.nishubin.work.model.DedeAdmin;
 import com.nishubin.work.service.DedeAdminService;
+import com.qiniu.util.Auth;
 
 @Controller
 public class UserController {
@@ -49,5 +51,12 @@ public class UserController {
 	@ResponseBody
 	public RespJson modifyUser(DedeAdmin admin){
 		return DedeAdminService.modifyAdmin(admin);
+	}
+	@RequestMapping("/cms/getUploadToken")
+	@ResponseBody
+	public Map<String,String> getToken(){
+		Map<String,String> map = new HashMap<String,String>();
+		map.put("uptoken", Auth.create("1bX0HL3vgMPixKJMIidctGiI0yBst47EvW-SWdnl", "d2UfcZxQmkXTchdcscE2LO_V_pqGIfsebawBZTrz").uploadToken("tairan"));
+		return map;
 	}
 }

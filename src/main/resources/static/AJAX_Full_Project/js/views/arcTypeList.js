@@ -35,7 +35,7 @@ $(function(){
       ],
       "columnDefs": [{
           "render": function(data, type, row, meta) {
-        	  if(row.id==0){
+        	  if(row.ishidden==0){
         		  return "显示";
         	  }else{
         		  return "隐藏";
@@ -45,7 +45,7 @@ $(function(){
       },
       {
           "render": function(data, type, row, meta) {
-        		  return "<button class='btn btn-outline-success' onclick=loadPage('forms/validation.html?arcTypeId="+row.id+"')>修改</button>";
+        		  return "<button class='btn btn-outline-success' onclick=loadPage('forms/arcTypeModify.html?arcTypeId="+row.id+"')>修改</button>";
           },
       	"targets": 4	
       }]

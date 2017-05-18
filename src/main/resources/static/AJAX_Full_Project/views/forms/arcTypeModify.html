@@ -1,0 +1,54 @@
+<script>
+
+var requireJS = [
+    "js/libs/jquery.validate.js"
+  ];
+  loadJS(requireJS, "js/views/arcTypeModify.js");
+   
+</script>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="icon-note"></i> 栏目修改
+                    <div class="card-actions">
+                        <a href="https://github.com/jzaefferer/jquery-validation">
+                            <small class="text-muted">返回</small>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-block">
+                     <form id="signupForm" method="post" action="">
+                         <div class="form-group row">
+                             <label class="col-md-3 form-control-label" >栏目名称</label>
+                          	<div class="col-md-9">
+                          			<input type="hidden" class="form-control"  name="id"  />
+                        			<input type="text" class="form-control" id="typename" name="typename" placeholder="栏目名称" />
+                     		</div>
+                         </div>
+                         <div class="form-group row">
+                             <label class="col-md-3 form-control-label" >栏目隐藏</label>
+                             <div class="col-md-9">
+                             	<label class="switch switch-text switch-primary">
+                				 	<input type="checkbox" class="switch-input" name="ishidden"  checked>
+                				 	<span class="switch-label" data-on="on" data-off="off"></span>
+                 				<span class="switch-handle"></span>
+             				</label>
+             				<span class="help-block">off隐藏 on显示</span>
+             				</div>
+                         </div>
+
+                         <div class="form-group">
+                             <label class="form-control-label" for="username">栏目内容</label>
+                              <textarea name="content"></textarea>
+                         </div>
+                         <div class="form-group">
+                             <button type="button" class="btn btn-primary"  onclick="modifyArcType()">save</button>
+                         </div>
+                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

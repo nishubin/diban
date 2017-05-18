@@ -28,17 +28,16 @@ public class DedeArchivesService {
 		PagePlug<DedeArchives> pageplug = new PagePlug<DedeArchives>();
 		DedeArchivesExample example = new DedeArchivesExample();
 		DedeArchivesExample.Criteria criteria = example.createCriteria();
-		example.setLimit(rows);
-		example.setOffset((page-1)*rows);
 		if(!StringUtils.isEmpty(archives.getTitle())){
 			criteria.andTitleLike("%"+archives.getTitle()+"%");
 		}
-		if(archives.getTypeid()!=null&&archives.getTypeid()!= 0){
-			criteria.andTypeidEqualTo((long)archives.getTypeid());
+		if(page!=null&&page>0&&rows!=null&&rows>0){
+			example.setLimit(rows);
+			example.setOffset((page-1)*rows);
+			pageplug.setPageSize(pageplug.getTotal()%rows==0?pageplug.getTotal()/rows:pageplug.getTotal()/rows+1);
 		}
 		pageplug.setData(dedeArchivesMapper.selectByExample(example));
 		pageplug.setTotal(dedeArchivesMapper.countByExample(example));
-		pageplug.setPageSize(pageplug.getTotal()%rows==0?pageplug.getTotal()/rows:pageplug.getTotal()/rows+1);
 		return pageplug;
 	}
 	/**

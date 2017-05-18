@@ -5,7 +5,7 @@
 	$.ajaxLoad = true;
 
 	    //required when $.ajaxLoad = true
-		$.defaultPage = 'plugins/tables.html';
+		$.defaultPage = 'plugins/arcTypeList.html';
 		$.subPagesDirectory = 'views/';
 		$.page404 = 'views/pages/404.html';
 		$.mainContent = $('#ui-view');
@@ -296,6 +296,6 @@ function init(url) {
 function GetQueryString(name)
 {
      var reg = new RegExp("(^|&)"+ name +"=([^&]*)(&|$)");
-     var r = window.location.search.substr(1).match(reg);
+     var r = window.location.hash.substr(window.location.hash.indexOf("?")+1).match(reg);
      if(r!=null)return  unescape(r[2]); return null;
 }
