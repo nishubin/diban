@@ -1,5 +1,7 @@
 package com.nishubin.work.service;
 
+import java.util.Date;
+
 import org.apache.commons.lang.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -70,11 +72,15 @@ public class DedeArchivesService {
 	 */
 	public RespJson createArchives(DedeArchives dedeArchives){
 		RespJson resp = new RespJson();
-		int id =dedeArchivesMapper.insert(dedeArchives);
+		
+		dedeArchives.setId(new Date().getTime());
+		dedeArchives.setUrl(getUrl((long)dedeArchives.getTypeid(),dedeArchives.getId()));
+		dedeArchives.setSortrank(dedeArchives.getId());
+		dedeArchivesMapper.insert(dedeArchives);
 		resp.setData(dedeArchives);
 		if(dedeArchives.getBody()!=null){
 			DedeAddonarticle dedeAddonarticle = new DedeAddonarticle();
-			dedeAddonarticle.setAid(id);
+			dedeAddonarticle.setAid(dedeArchives.getId());
 			dedeAddonarticle.setTypeid(dedeArchives.getTypeid());
 			dedeAddonarticle.setBody(dedeArchives.getBody());
 			dedeAddonarticleMapper.insert(dedeAddonarticle);
@@ -108,5 +114,25 @@ public class DedeArchivesService {
 			resp.setMsg("找不到该数据");
 		}
 		return resp;
+	}
+	private String getUrl(Long typeId,Long id){
+		if(typeId.equals(6)){
+			return "/view/articleArticle/5/"+typeId+"?infoId="+id;
+		}else if(typeId.equals(7)){
+			return "/view/articleArticle/5/"+typeId+"?infoId="+id;
+		}else if(typeId.equals(8)){
+			return "/view/articleArticle/5/"+typeId+"?infoId="+id;
+		}else if(typeId.equals(15)){
+			return "/view/articleNews/14/"+typeId+"?infoId="+id;
+		}else if(typeId.equals(16)){
+			return "/view/articleNews/14/"+typeId+"?infoId="+id;
+		}else if(typeId.equals(17)){
+			return "/view/articleNews/14/"+typeId+"?infoId="+id;
+		}else if(typeId.equals(21)){
+			return "/view/articleArticle/21/"+typeId+"?infoId="+typeId;
+		}else{
+			return null;
+		}
+		
 	}
 }

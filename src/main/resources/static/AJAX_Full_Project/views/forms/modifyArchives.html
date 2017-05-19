@@ -3,7 +3,7 @@
  var requireJS = [
    "js/qiniu/qiniu.min.js"
   ];
-  loadJS(requireJS, "js/views/addArchives.js"); 
+  loadJS(requireJS, "js/views/modifyArchives.js"); 
   tinymce.init({ selector:'textarea' });
 </script>
 <div class="animated fadeIn">
@@ -64,7 +64,7 @@
                               <textarea name="content"></textarea>
                          </div>
                          <div class="form-group">
-                             <button type="button" class="btn btn-primary"  onclick="addArchives()">save</button>
+                             <button type="button" class="btn btn-primary"  onclick="modifyArchives()">save</button>
                          </div>
                      </form>
                 </div>

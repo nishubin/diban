@@ -42,7 +42,7 @@ $(function(){
       },
       {
           "render": function(data, type, row, meta) {
-        		  return "<button class='btn btn-outline-success' onclick=loadPage('forms/archivesModify.html?archivesId="+row.id+"')>修改</button><button class='btn btn-outline-success' onclick=deleteArchives('"+row.id+"')>删除</button>";
+        		  return "<button class='btn btn-outline-success' onclick=loadPage('forms/modifyArchives.html?archivesId="+row.id+"')>修改</button><button class='btn btn-outline-success' onclick=deleteArchives('"+row.id+"')>删除</button>";
           },
       	"targets": 5	
       }]

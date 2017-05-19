@@ -2,7 +2,6 @@ package com.nishubin.work.dao;
 
 import com.nishubin.work.model.DedeArchives;
 import com.nishubin.work.model.DedeArchivesExample;
-import com.nishubin.work.model.DedeArctype;
 
 import java.util.List;
 import org.apache.ibatis.annotations.Param;
@@ -11,13 +10,13 @@ import org.springframework.stereotype.Repository;
 public interface DedeArchivesMapper {
     long countByExample(DedeArchivesExample example);
 
-    int deleteByExample(DedeArchivesExample example);
+    long deleteByExample(DedeArchivesExample example);
 
-    int deleteByPrimaryKey(Long id);
+    long deleteByPrimaryKey(Long id);
 
-    int insert(DedeArchives record);
+    long insert(DedeArchives record);
 
-    int insertSelective(DedeArchives record);
+    long insertSelective(DedeArchives record);
 
     List<DedeArchives> selectByExample(DedeArchivesExample example);
     

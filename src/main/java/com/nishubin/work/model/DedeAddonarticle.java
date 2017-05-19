@@ -8,7 +8,7 @@ import java.io.Serializable;
  *
  */
 public class DedeAddonarticle implements Serializable {
-    private Integer aid;
+    private Long aid;
 
     /**
      * 栏目ID
@@ -27,11 +27,11 @@ public class DedeAddonarticle implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getAid() {
+    public Long getAid() {
         return aid;
     }
 
-    public void setAid(Integer aid) {
+    public void setAid(Long aid) {
         this.aid = aid;
     }
 

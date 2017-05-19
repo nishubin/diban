@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author 
  */
 public class DedeArchives implements Serializable {
-    private Integer id;
+    private Long id;
 
     /**
      * 文章栏目ID
@@ -16,7 +16,7 @@ public class DedeArchives implements Serializable {
     /**
      * 文章排序字段
      */
-    private Integer sortrank;
+    private Long sortrank;
 
     /**
      * 文章类型（'s'：'滚动'，'h'：'头条'，'f'：'幻灯'，'c'：'推荐'，'p'：'图片'，'j'：'跳转'，'a'：'特荐'，'b'：'加粗'）
@@ -79,11 +79,11 @@ public class DedeArchives implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    public Integer getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(Integer id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -95,11 +95,11 @@ public class DedeArchives implements Serializable {
         this.typeid = typeid;
     }
 
-    public Integer getSortrank() {
+    public Long getSortrank() {
         return sortrank;
     }
 
-    public void setSortrank(Integer sortrank) {
+    public void setSortrank(Long sortrank) {
         this.sortrank = sortrank;
     }
 

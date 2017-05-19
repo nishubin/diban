@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.nishubin.work.model.DedeArchives">
     <id column="id" jdbcType="BIGINT" property="id" />
     <result column="typeid" jdbcType="BIGINT" property="typeid" />
-    <result column="sortrank" jdbcType="INTEGER" property="sortrank" />
+    <result column="sortrank" jdbcType="BIGINT" property="sortrank" />
     <result column="flag" jdbcType="CHAR" property="flag" />
     <result column="click" jdbcType="BIGINT" property="click" />
     <result column="title" jdbcType="CHAR" property="title" />
