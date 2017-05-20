@@ -983,6 +983,10 @@ public class DedeArchivesExample {
             addCriterion("weight not between", value1, value2, "weight");
             return (Criteria) this;
         }
+        public Criteria andIsdeleteEqualTo(String value) {
+            addCriterion("isdelete =", value, "isdelete");
+            return (Criteria) this;
+        }
     }
 
     /**

@@ -273,5 +273,24 @@
     <include refid="Base_Column_List" />
     from dede_sysconfig
   </select>
-  
+  <update id="updateValue" parameterType="java.lang.String">
+   	 UPDATE dede_sysconfig set value = #{value,jdbcType=VARCHAR} WHERE varname = #{varnames,jdbcType=VARCHAR}
+  </update>
+  <select id="selectVarnames" resultMap="BaseResultMap" parameterType="java.util.List">
+  select
+    <include refid="Base_Column_List" />
+     from dede_sysconfig
+    <if test="varnames != null">
+      where varname in
+      <trim prefix="(" prefixOverrides="," suffix=")">
+      	 <foreach collection="varnames" item="varname">
+              <choose>
+                <when test="varname!=null">
+                  , #{varname,jdbcType=VARCHAR}
+                </when>
+              </choose>
+            </foreach>
+      </trim>
+     </if>
+  </select>
 </mapper>

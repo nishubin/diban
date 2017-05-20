@@ -38,6 +38,7 @@ public class DedeArchivesService {
 			example.setOffset((page-1)*rows);
 			pageplug.setPageSize(pageplug.getTotal()%rows==0?pageplug.getTotal()/rows:pageplug.getTotal()/rows+1);
 		}
+		criteria.andIsdeleteEqualTo("0");
 		pageplug.setData(dedeArchivesMapper.selectByExample(example));
 		pageplug.setTotal(dedeArchivesMapper.countByExample(example));
 		return pageplug;
@@ -49,13 +50,15 @@ public class DedeArchivesService {
 	 */
 	public RespJson modifyArchives(DedeArchives dedeArchives){
 		RespJson resp = new RespJson();
-		DedeArchives row = dedeArchivesMapper.selectByPrimaryKey((long)dedeArchives.getId());
+		DedeArchives row = dedeArchivesMapper.selectByPrimaryKey(dedeArchives.getId());
 		if(row!=null){
 			dedeArchivesMapper.updateByPrimaryKeySelective(dedeArchives);
 			if(dedeArchives.getBody()!=null){
-				DedeAddonarticle dedeAddonarticle =dedeAddonarticleMapper.selectByPrimaryKey((long)dedeArchives.getId());
+				DedeAddonarticle dedeAddonarticle = new DedeAddonarticle();
+				dedeAddonarticle.setAid(row.getId());
+				dedeAddonarticle.setTypeid(row.getTypeid());
 				dedeAddonarticle.setBody(dedeArchives.getBody());
-				dedeAddonarticleMapper.updateByPrimaryKey(dedeAddonarticle);
+				dedeAddonarticleMapper.updateByPrimaryKeySelective(dedeAddonarticle);
 			}
 			resp.setData(dedeArchives);
 		}else{
@@ -72,10 +75,10 @@ public class DedeArchivesService {
 	 */
 	public RespJson createArchives(DedeArchives dedeArchives){
 		RespJson resp = new RespJson();
-		
 		dedeArchives.setId(new Date().getTime());
 		dedeArchives.setUrl(getUrl((long)dedeArchives.getTypeid(),dedeArchives.getId()));
 		dedeArchives.setSortrank(dedeArchives.getId());
+		dedeArchives.setIsdelete("0");
 		dedeArchivesMapper.insert(dedeArchives);
 		resp.setData(dedeArchives);
 		if(dedeArchives.getBody()!=null){
@@ -93,9 +96,17 @@ public class DedeArchivesService {
 	 * @param archivesId
 	 * @return
 	 */
-	public RespJson deleteArchives(Integer archivesId){
+	public RespJson deleteArchives(Long archivesId){
 		RespJson resp = new RespJson();
-		dedeArchivesMapper.deleteByPrimaryKey((long)archivesId);
+		DedeArchives row = dedeArchivesMapper.selectByPrimaryKey(archivesId);
+		if(row!=null){
+			row.setIsdelete("1");
+			dedeArchivesMapper.updateByPrimaryKey(row);
+		}else{
+			resp.setCode("500");
+			resp.setData(row);
+			resp.setMsg("找不到该数据");
+		}
 		return resp;
 	}
 	/**
@@ -103,10 +114,14 @@ public class DedeArchivesService {
 	 * @param arctypeId
 	 * @return
 	 */
-	public RespJson selectArchives(Integer archivesId){
+	public RespJson selectArchives(Long archivesId){
 		RespJson resp = new RespJson();
-		DedeArchives row = dedeArchivesMapper.selectByPrimaryKey((long)archivesId);
+		DedeArchives row = dedeArchivesMapper.selectByPrimaryKey(archivesId);
 		if(row!=null){
+			DedeAddonarticle dedeAddonarticle = dedeAddonarticleMapper.selectByPrimaryKey(row.getId());
+			if(dedeAddonarticle!=null){
+				row.setBody(dedeAddonarticle.getBody());
+			}
 			resp.setData(row);
 		}else{
 			resp.setCode("500");
@@ -116,19 +131,19 @@ public class DedeArchivesService {
 		return resp;
 	}
 	private String getUrl(Long typeId,Long id){
-		if(typeId.equals(6)){
+		if(typeId.equals(6L)){
 			return "/view/articleArticle/5/"+typeId+"?infoId="+id;
-		}else if(typeId.equals(7)){
+		}else if(typeId.equals(7L)){
 			return "/view/articleArticle/5/"+typeId+"?infoId="+id;
-		}else if(typeId.equals(8)){
+		}else if(typeId.equals(8L)){
 			return "/view/articleArticle/5/"+typeId+"?infoId="+id;
-		}else if(typeId.equals(15)){
+		}else if(typeId.equals(15L)){
 			return "/view/articleNews/14/"+typeId+"?infoId="+id;
-		}else if(typeId.equals(16)){
+		}else if(typeId.equals(16L)){
 			return "/view/articleNews/14/"+typeId+"?infoId="+id;
-		}else if(typeId.equals(17)){
+		}else if(typeId.equals(17L)){
 			return "/view/articleNews/14/"+typeId+"?infoId="+id;
-		}else if(typeId.equals(21)){
+		}else if(typeId.equals(21L)){
 			return "/view/articleArticle/21/"+typeId+"?infoId="+typeId;
 		}else{
 			return null;

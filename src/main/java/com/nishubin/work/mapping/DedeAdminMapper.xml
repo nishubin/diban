@@ -6,6 +6,7 @@
     <result column="account" jdbcType="VARCHAR" property="account" />
     <result column="name" jdbcType="VARCHAR" property="name" />
     <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="headImage" jdbcType="VARCHAR" property="headImage" />
   </resultMap>
   <sql id="Example_Where_Clause">
     <where>
@@ -66,7 +67,7 @@
     </where>
   </sql>
   <sql id="Base_Column_List">
-    id, account, name, password
+    id, account, name, password,headImage
   </sql>
   <select id="selectByExample" parameterType="com.nishubin.work.model.DedeAdminExample" resultMap="BaseResultMap">
     select
@@ -119,6 +120,9 @@
       <if test="password != null">
         password,
       </if>
+      <if test="headImage != null">
+        headImage,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -132,6 +136,9 @@
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+       <if test="headImage != null">
+        #{headImage,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -156,6 +163,9 @@
       <if test="record.password != null">
         password = #{record.password,jdbcType=VARCHAR},
       </if>
+      <if test="record.headImage != null">
+        headImage = #{record.headImage,jdbcType=VARCHAR},
+      </if>
     </set>
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
@@ -166,7 +176,8 @@
     set id = #{record.id,jdbcType=INTEGER},
       account = #{record.account,jdbcType=VARCHAR},
       name = #{record.name,jdbcType=VARCHAR},
-      password = #{record.password,jdbcType=VARCHAR}
+      password = #{record.password,jdbcType=VARCHAR},
+      headImage = #{record.headImage,jdbcType=VARCHAR}
     <if test="_parameter != null">
       <include refid="Update_By_Example_Where_Clause" />
     </if>
@@ -183,6 +194,9 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+       <if test="headImage != null">
+        headImage = #{headImage,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
@@ -191,6 +205,7 @@
     set account = #{account,jdbcType=VARCHAR},
       name = #{name,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR}
+      headImage = #{headImage,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
    <select id="selectByAccountPassword" parameterType="java.lang.String" resultMap="BaseResultMap" >

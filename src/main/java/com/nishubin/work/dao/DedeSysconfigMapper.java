@@ -3,6 +3,8 @@ package com.nishubin.work.dao;
 import com.nishubin.work.model.DedeSysconfig;
 import com.nishubin.work.model.DedeSysconfigExample;
 import java.util.List;
+import java.util.Map;
+
 import org.apache.ibatis.annotations.Param;
 import org.springframework.stereotype.Repository;
 @Repository
@@ -36,4 +38,8 @@ public interface DedeSysconfigMapper {
     int updateByPrimaryKeyWithBLOBs(DedeSysconfig record);
 
     int updateByPrimaryKey(DedeSysconfig record);
+    
+    List<DedeSysconfig> selectVarnames(@Param("varnames")String[] varnames);
+    
+   int updateValue(@Param("varnames") String varnames,@Param("value") String value); 
 }

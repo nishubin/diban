@@ -44,13 +44,13 @@ public class ArchivesController {
 	
 	@RequestMapping("/cms/deleteArchives")
 	@ResponseBody
-	public RespJson deleteArchives(Integer archivesId){
+	public RespJson deleteArchives(Long archivesId){
 		return DedeArchivesService.deleteArchives(archivesId);
 	}
 	
 	@RequestMapping("/cms/seleteArchives")
 	@ResponseBody
-	public RespJson seleteArchives(Integer archivesId){
+	public RespJson seleteArchives(Long archivesId){
 		return DedeArchivesService.selectArchives(archivesId);
 	}
 }

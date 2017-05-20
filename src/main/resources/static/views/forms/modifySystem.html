@@ -1,0 +1,65 @@
+<script>
+var requireJS = [];
+	  loadJS(requireJS, "/js/views/modifySystem.js"); 
+</script>
+<div class="animated fadeIn">
+    <div class="row">
+        <div class="col-md-12">
+            <div class="card">
+                <div class="card-header">
+                    <i class="icon-note"></i> 系统修改
+                    <div class="card-actions">
+                        <a href="https://github.com/jzaefferer/jquery-validation">
+                            <small class="text-muted">返回</small>
+                        </a>
+                    </div>
+                </div>
+                <div class="card-block">
+                     <form id="signupForm" method="post" action="">
+                         <div class="form-group row">
+                         	<div class="col-md-6" >
+                         			<label class="form-control-label" >网站名称</label>
+                         			<input type="hidden" class="form-control"  name="id"  />
+                        			<input type="text" class="form-control" id="cfg_webname" name="cfg_webname" placeholder="网站名称" />
+                         	</div>
+                         	<div class="col-md-6" >
+                         			<label class="form-control-label" >热线电话</label>
+                         			<input type="hidden" class="form-control"  name="id"  />
+                        			<input type="text" class="form-control" id="cfg_rxdianhua" name="cfg_rxdianhua" placeholder="热线电话" />
+                         	</div>
+                         </div>
+                         <div class="form-group row">
+                         	<div class="col-md-6" >
+                        		<label class="form-control-label" >在线客服QQ号</label>
+                        		<input type="hidden" class="form-control"  name="id"  />
+                       			<input type="text" class="form-control" id="cfg_kfqq" name="cfg_kfqq" placeholder="在线客服QQ号" />
+                         	</div>
+                         	<div class="col-md-6" >
+                         		<label class="form-control-label" >咨询电话</label>
+                         		<input type="hidden" class="form-control"  name="id"  />
+                        		<input type="text" class="form-control" id="cfg_zxdianhua" name="cfg_zxdianhua" placeholder="咨询电话" />
+                         	</div>
+                         </div>
+                         <div class="form-group row">
+                        	 <div class="col-md-6" >
+                        	 	<label class="col-md-3 form-control-label" >网站logo</label>
+                        	 	<img id="cfg_logoImg" id="uploadElement" alt="" src="" height="200px" width="200px" /> 
+                        		<input type="hidden"   name="cfg_logo" />
+                        		<button id="uploadButton" type="button" class="btn btn-primary"  >点击上传图片</button>
+                        	 </div>
+                             <div class="col-md-6" >
+                        	 	<label class="col-md-3 form-control-label" >微信二维码</label>
+                        	 	<img id="cfg_wxewmImg" alt="" src="" height="200px" width="200px" /> 
+                        		<input type="hidden"   id="cfg_wxewmElement" name="cfg_wxewm" />
+                        		<button id="uploadcfg_wxewm" type="button" class="btn btn-primary"  >点击上传图片</button>
+                        	 </div>
+                         </div>
+                         <div class="form-group">
+                             <button type="button" class="btn btn-primary"  onclick="modifySystem()">save</button>
+                         </div>
+                     </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

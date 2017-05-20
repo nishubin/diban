@@ -76,6 +76,8 @@ public class DedeArchives implements Serializable {
      * 内容详情
      */
     private String body;
+    
+    private String isdelete;
 
     private static final long serialVersionUID = 1L;
 
@@ -197,6 +199,14 @@ public class DedeArchives implements Serializable {
 
 	public void setBody(String body) {
 		this.body = body;
+	}
+
+	public String getIsdelete() {
+		return isdelete;
+	}
+
+	public void setIsdelete(String isdelete) {
+		this.isdelete = isdelete;
 	}
     
 }

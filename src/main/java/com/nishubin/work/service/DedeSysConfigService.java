@@ -1,10 +1,16 @@
 package com.nishubin.work.service;
 
+
+import java.util.HashMap;
+import java.util.Iterator;
 import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.nishubin.work.bean.resp.RespJson;
 import com.nishubin.work.bean.resp.SysConfigs;
 import com.nishubin.work.dao.DedeAddonarticleMapper;
 import com.nishubin.work.dao.DedeArchivesMapper;
@@ -35,5 +41,27 @@ public class DedeSysConfigService {
 		sysconfigDate.setDedeAddonarticles(dedeAddonarticleMapper.selectAll());
 		sysconfigDate.setDedeArchives(dedeArchivesMapper.selectAll());
 		return sysconfigDate;
+	}
+	
+	public RespJson getSystem(){
+		RespJson resp = new RespJson();
+		String[] varnames ={"cfg_webname","cfg_rxdianhua","cfg_zxdianhua","cfg_kfqq","cfg_logo","cfg_wxewm"};
+		Map<String,String> map = new HashMap<String,String>();
+		List<DedeSysconfig> sysConfigs = dedeSysconfigMapper.selectVarnames(varnames);
+		for(DedeSysconfig sysconfig :sysConfigs){
+			map.put(sysconfig.getVarname(), sysconfig.getValue());
+		}
+		resp.setData(map);
+		return resp;
+	}
+	
+	public RespJson updateSystem(Map<String,String> map){
+		RespJson resp = new RespJson();
+		Set<String> key = map.keySet();
+        for (Iterator it = key.iterator(); it.hasNext();) {
+        	String s = (String) it.next();
+        	dedeSysconfigMapper.updateValue(s, map.get(s));
+        }
+		return resp;
 	}
 }

@@ -20,7 +20,7 @@ public class IndexArticleController {
 	@Autowired
 	private HttpServletRequest request;
 	@RequestMapping(method=RequestMethod.GET, value="/view/{path}/{pid}/{childId}")
-	public String go(@PathVariable String path,@PathVariable Integer pid,@PathVariable Integer childId, Integer infoId,Integer page ,Map<String, Object> model) {
+	public String go(@PathVariable String path,@PathVariable Integer pid,@PathVariable Integer childId, Long infoId,Integer page ,Map<String, Object> model) {
 		SysConfigs sysConfigs = (SysConfigs) request.getSession().getAttribute("sysConfig");
 		DedeArctype arctye = sysConfigs.getArcTye(pid);
 		List<DedeArctype> childArcTyes = sysConfigs.getChildArcTyes(pid);

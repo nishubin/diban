@@ -22,6 +22,8 @@ public class DedeAdmin implements Serializable {
      * 密码
      */
     private String password;
+    
+    private String headImage;
 
     private static final long serialVersionUID = 1L;
 
@@ -56,4 +58,13 @@ public class DedeAdmin implements Serializable {
     public void setPassword(String password) {
         this.password = password;
     }
+
+	public String getHeadImage() {
+		return headImage;
+	}
+
+	public void setHeadImage(String headImage) {
+		this.headImage = headImage;
+	}
+    
 }

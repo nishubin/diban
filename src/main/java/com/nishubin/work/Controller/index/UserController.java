@@ -35,6 +35,14 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping("/cms/logout")
+	@ResponseBody 
+	public RespJson logout() {
+		RespJson respJson = new RespJson();
+		request.getSession(true).removeAttribute("admin");
+		return respJson;
+	}
+	
 	@RequestMapping("/cms/listUser")
 	@ResponseBody  
 	public RespJson queryUserS(String account, String name){
@@ -50,7 +58,9 @@ public class UserController {
 	@RequestMapping("/cms/modifyUser")
 	@ResponseBody
 	public RespJson modifyUser(DedeAdmin admin){
-		return DedeAdminService.modifyAdmin(admin);
+		RespJson resp = DedeAdminService.modifyAdmin(admin);
+		request.getSession(true).setAttribute("admin", resp.getData());
+		return resp;
 	}
 	@RequestMapping("/cms/getUploadToken")
 	@ResponseBody
@@ -59,4 +69,6 @@ public class UserController {
 		map.put("uptoken", Auth.create("1bX0HL3vgMPixKJMIidctGiI0yBst47EvW-SWdnl", "d2UfcZxQmkXTchdcscE2LO_V_pqGIfsebawBZTrz").uploadToken("tairan"));
 		return map;
 	}
+	
+	
 }

@@ -130,10 +130,10 @@ public class SysConfigs implements Serializable {
 	 * @param typeId
 	 * @return
 	 */
-	public DedeArchives queryId(Integer id){
+	public DedeArchives queryId(Long id){
 		DedeArchives row = null;
 		for (DedeArchives dedeArchive : getDedeArchives()) {
-			if (dedeArchive.getId().equals(id)) {
+			if (dedeArchive.getId().equals((long)id)) {
 				row = dedeArchive;
 				row.setBody(getAddonarticle(id).getBody());
 			}
@@ -185,10 +185,10 @@ public class SysConfigs implements Serializable {
 		return a%b;
 	}
 	
-	public DedeAddonarticle getAddonarticle(Integer aid){
+	public DedeAddonarticle getAddonarticle(Long aid){
 		DedeAddonarticle addonarticle = null;
 		for(DedeAddonarticle row :getDedeAddonarticles()){
-			if(row.getAid().equals(aid)){
+			if(row.getAid().equals((long)aid)){
 				addonarticle = row;
 			}
 		}
@@ -203,18 +203,25 @@ public class SysConfigs implements Serializable {
 		}
 	}
 	
-	/**
-	 * 根据时间秒获取指定时间格式
-	 * @param date
-	 * @return
-	 */
-	public String getFormatDate(Integer dateM,String dataType){
-		Long dataL = dateM*1000L;
-		Date data = new Date(dataL);
-		SimpleDateFormat formatter = new SimpleDateFormat(dataType);
-		return formatter.format(data);
+	public String getArchIvesDay(DedeArchives archives){
+		Date date = new Date(archives.getSortrank());
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = formatter.format(date);
+	   	return dateString.substring(8);
 	}
-
+	public String getArchIvesDate(DedeArchives archives){
+		Date date = new Date(archives.getSortrank());
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = formatter.format(date);
+	   	return dateString;
+	}
+	public String getFormatD(DedeArchives archives){
+		Date date = new Date(archives.getSortrank());
+		SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd");
+		String dateString = formatter.format(date);
+	   	return dateString.substring(0,7);
+	}
+	
 	public String getPageList(Integer typeId,Integer page,Integer pageSize,String href){
 		String str = "";
 		Integer totalPage = 0;

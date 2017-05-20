@@ -35,15 +35,8 @@ public class DedeAdminService {
 	
 	public RespJson modifyAdmin(DedeAdmin admin){
 		RespJson resp = new RespJson();
-		DedeAdmin row = dedeAdminMapper.selectByPrimaryKey(admin.getId());
-		if(row!=null){
-			dedeAdminMapper.updateByPrimaryKeySelective(admin);
-			resp.setData(admin);
-		}else{
-			resp.setCode("500");
-			resp.setData(admin);
-			resp.setMsg("找不到要修改的用户");
-		}
+		dedeAdminMapper.updateByPrimaryKeySelective(admin);
+		resp.setData(admin);
 		return resp;
 	}
 	public RespJson queryDedeAdmins(String account,String username){
