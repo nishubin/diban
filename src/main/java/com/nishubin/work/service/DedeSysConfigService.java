@@ -12,6 +12,7 @@ import org.springframework.stereotype.Service;
 
 import com.nishubin.work.bean.resp.RespJson;
 import com.nishubin.work.bean.resp.SysConfigs;
+import com.nishubin.work.config.EhcacheUtil;
 import com.nishubin.work.dao.DedeAddonarticleMapper;
 import com.nishubin.work.dao.DedeArchivesMapper;
 import com.nishubin.work.dao.DedeArctypeMapper;
@@ -62,6 +63,10 @@ public class DedeSysConfigService {
         	String s = (String) it.next();
         	dedeSysconfigMapper.updateValue(s, map.get(s));
         }
+        SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		sysConfigs.setConfigs(dedeSysconfigMapper.selectAll());
+		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
+		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 }

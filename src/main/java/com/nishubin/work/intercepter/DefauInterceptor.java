@@ -9,7 +9,9 @@ import org.springframework.web.context.support.WebApplicationContextUtils;
 import org.springframework.web.servlet.handler.HandlerInterceptorAdapter;
 
 import com.nishubin.work.bean.resp.SysConfigs;
+import com.nishubin.work.config.EhcacheUtil;
 import com.nishubin.work.service.DedeSysConfigService;
+import com.qiniu.util.Json;
 
 public class DefauInterceptor extends HandlerInterceptorAdapter  {
 	@Autowired
@@ -33,10 +35,17 @@ public class DefauInterceptor extends HandlerInterceptorAdapter  {
 		         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext()); 
 		         dedeSysConfigService = (DedeSysConfigService) factory.getBean("dedeSysConfigService"); 
 		      } 
-			 SysConfigs sysConfigs = dedeSysConfigService.loadData();
-			request.getSession(true).setAttribute("sysConfig",sysConfigs);
+			 if(EhcacheUtil.getInstance().get("com.Menu", "sysConfig")==null){
+				 System.out.println("获取数据");
+				 SysConfigs sysConfigs = dedeSysConfigService.loadData();
+				 EhcacheUtil.getInstance().put("com.Menu", "sysConfig", sysConfigs);
+			 }
+			request.getSession(true).setAttribute("sysConfig",EhcacheUtil.getInstance().get("com.Menu", "sysConfig"));
 		}
-		
+		if("update".equals(EhcacheUtil.getInstance().get("com.Menu", "updateCache"))) {
+			request.getSession(true).setAttribute("sysConfig",EhcacheUtil.getInstance().get("com.Menu", "sysConfig"));
+			EhcacheUtil.getInstance().put("com.Menu", "updateCache", "");
+		}
 		return true;
 	}
 	

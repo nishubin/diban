@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.nishubin.work.bean.resp.PagePlug;
 import com.nishubin.work.bean.resp.RespJson;
+import com.nishubin.work.bean.resp.SysConfigs;
+import com.nishubin.work.config.EhcacheUtil;
 import com.nishubin.work.dao.DedeArctypeMapper;
 import com.nishubin.work.model.DedeArctype;
 import com.nishubin.work.model.DedeArctypeExample;
@@ -54,6 +56,10 @@ public class DedeArctypeService {
 			resp.setData(dedeArctype);
 			resp.setMsg("找不到要修改的用户");
 		}
+		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		sysConfigs.setArcTypes(dedeArctypeMapper.selectAll());
+		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
+		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	public RespJson selectArctype(Integer arctypeId){

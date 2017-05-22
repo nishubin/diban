@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.nishubin.work.bean.resp.RespJson;
@@ -23,15 +24,15 @@ public class UserController {
 	
 	@Autowired
 	private DedeAdminService DedeAdminService;
-	@RequestMapping("/cms/login")
+	@RequestMapping(method=RequestMethod.GET,path="/cms/login")
 	public String login(String account, String password,Map<String, Object> model) {
 		RespJson resp = DedeAdminService.login(account, password);
 		model.put("resp", resp);
 		if(resp.getCode().equals("200")){
 			request.getSession(true).setAttribute("admin", resp.getData());
-			return "/cms/index";
+			return "adminIndex";
 		}else{
-			return "/cms/login";
+			return "login";
 		}
 	}
 	
