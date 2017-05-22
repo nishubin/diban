@@ -8,6 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.nishubin.work.bean.resp.PagePlug;
 import com.nishubin.work.bean.resp.RespJson;
+import com.nishubin.work.bean.resp.SysConfigs;
+import com.nishubin.work.config.EhcacheUtil;
 import com.nishubin.work.dao.DedeAddonarticleMapper;
 import com.nishubin.work.dao.DedeArchivesMapper;
 import com.nishubin.work.model.DedeAddonarticle;
@@ -66,6 +68,10 @@ public class DedeArchivesService {
 			resp.setData(dedeArchives);
 			resp.setMsg("找不到要修改的用户");
 		}
+		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		sysConfigs.setDedeArchives(dedeArchivesMapper.selectAll());
+		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
+		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	/**
@@ -88,6 +94,10 @@ public class DedeArchivesService {
 			dedeAddonarticle.setBody(dedeArchives.getBody());
 			dedeAddonarticleMapper.insert(dedeAddonarticle);
 		}
+		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		sysConfigs.setDedeArchives(dedeArchivesMapper.selectAll());
+		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
+		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	
@@ -107,6 +117,10 @@ public class DedeArchivesService {
 			resp.setData(row);
 			resp.setMsg("找不到该数据");
 		}
+		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		sysConfigs.setDedeArchives(dedeArchivesMapper.selectAll());
+		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
+		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	/**
