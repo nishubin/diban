@@ -36,6 +36,11 @@ public class UserController {
 		}
 	}
 	
+	@RequestMapping("/cms/index")
+	public String index() {
+		return "adminIndex";
+	}
+	
 	@RequestMapping("/cms/logout")
 	@ResponseBody 
 	public RespJson logout() {
