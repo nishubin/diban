@@ -2,10 +2,12 @@ package com.nishubin.work.config;
 
 import java.net.URL;
 
+import org.springframework.stereotype.Component;
+
 import net.sf.ehcache.Cache;
 import net.sf.ehcache.CacheManager;
 import net.sf.ehcache.Element;
-
+@Component
 public class EhcacheUtil {
 	private static final String path = "/ehcache.xml";  
 	  
@@ -13,18 +15,10 @@ public class EhcacheUtil {
   
     private CacheManager manager;  
   
-    private static EhcacheUtil ehCache;  
-  
-    private EhcacheUtil(String path) {  
+    private EhcacheUtil() {  
+    	System.out.println("初始化cach");
         url = getClass().getResource(path);  
         manager = CacheManager.create(url);  
-    }  
-  
-    public static EhcacheUtil getInstance() {  
-        if (ehCache== null) {  
-            ehCache= new EhcacheUtil(path);  
-        }  
-        return ehCache;  
     }  
   
     public void put(String cacheName, String key, Object value) {  

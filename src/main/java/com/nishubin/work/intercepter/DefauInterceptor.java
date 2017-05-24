@@ -16,6 +16,8 @@ import com.qiniu.util.Json;
 public class DefauInterceptor extends HandlerInterceptorAdapter  {
 	@Autowired
 	private DedeSysConfigService dedeSysConfigService; 
+	@Autowired
+	private EhcacheUtil ehcacheUtil;
 	
 	public boolean preHandle(HttpServletRequest request, HttpServletResponse response,
             Object handler) throws Exception {
@@ -31,20 +33,26 @@ public class DefauInterceptor extends HandlerInterceptorAdapter  {
 		}
 		if(request.getSession().getAttribute("sysConfig") == null) {
 			 if (dedeSysConfigService == null) {//解决service为null无法注入问题 
-		         System.out.println("operatorLogService is null!!!"); 
+		         System.out.println("dedeSysConfigService is null!!!"); 
 		         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext()); 
 		         dedeSysConfigService = (DedeSysConfigService) factory.getBean("dedeSysConfigService"); 
 		      } 
-			 if(EhcacheUtil.getInstance().get("com.Menu", "sysConfig")==null){
+			 
+			 if (ehcacheUtil == null) {//解决service为null无法注入问题 
+		         System.out.println("ehcacheUtil is null!!!"); 
+		         BeanFactory factory = WebApplicationContextUtils.getRequiredWebApplicationContext(request.getServletContext()); 
+		         ehcacheUtil = (EhcacheUtil) factory.getBean("ehcacheUtil"); 
+		      } 
+			 if(ehcacheUtil.get("com.Menu", "sysConfig")==null){
 				 System.out.println("获取数据");
 				 SysConfigs sysConfigs = dedeSysConfigService.loadData();
-				 EhcacheUtil.getInstance().put("com.Menu", "sysConfig", sysConfigs);
+				 ehcacheUtil.put("com.Menu", "sysConfig", sysConfigs);
 			 }
-			request.getSession(true).setAttribute("sysConfig",EhcacheUtil.getInstance().get("com.Menu", "sysConfig"));
+			request.getSession(true).setAttribute("sysConfig",ehcacheUtil.get("com.Menu", "sysConfig"));
 		}
-		if("update".equals(EhcacheUtil.getInstance().get("com.Menu", "updateCache"))) {
-			request.getSession(true).setAttribute("sysConfig",EhcacheUtil.getInstance().get("com.Menu", "sysConfig"));
-			EhcacheUtil.getInstance().put("com.Menu", "updateCache", "");
+		if("update".equals(ehcacheUtil.get("com.Menu", "updateCache"))) {
+			request.getSession(true).setAttribute("sysConfig",ehcacheUtil.get("com.Menu", "sysConfig"));
+			ehcacheUtil.put("com.Menu", "updateCache", "");
 		}
 		return true;
 	}

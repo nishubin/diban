@@ -16,6 +16,9 @@ import com.nishubin.work.model.DedeArctypeExample;
 public class DedeArctypeService {
 	@Autowired
 	private DedeArctypeMapper dedeArctypeMapper;
+	
+	@Autowired
+	private EhcacheUtil ehcacheUtil;
 	/**
 	 * 查询栏目列表
 	 * @param Arctype
@@ -56,10 +59,10 @@ public class DedeArctypeService {
 			resp.setData(dedeArctype);
 			resp.setMsg("找不到要修改的用户");
 		}
-		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		SysConfigs sysConfigs = (SysConfigs) ehcacheUtil.get("com.Menu", "sysConfig");
 		sysConfigs.setArcTypes(dedeArctypeMapper.selectAll());
-		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
-		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
+		ehcacheUtil.put("com.Menu", "sysConfig",sysConfigs);
+		ehcacheUtil.put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	public RespJson selectArctype(Integer arctypeId){

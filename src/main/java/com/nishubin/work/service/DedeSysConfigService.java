@@ -34,6 +34,9 @@ public class DedeSysConfigService {
 	@Autowired
 	private DedeAddonarticleMapper dedeAddonarticleMapper;
 	
+	@Autowired
+	private EhcacheUtil ehcacheUtil;
+	
 	
 	public SysConfigs  loadData(){
 		SysConfigs sysconfigDate = new SysConfigs();
@@ -63,10 +66,10 @@ public class DedeSysConfigService {
         	String s = (String) it.next();
         	dedeSysconfigMapper.updateValue(s, map.get(s));
         }
-        SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+        SysConfigs sysConfigs = (SysConfigs) ehcacheUtil.get("com.Menu", "sysConfig");
 		sysConfigs.setConfigs(dedeSysconfigMapper.selectAll());
-		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
-		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
+		ehcacheUtil.put("com.Menu", "sysConfig",sysConfigs);
+		ehcacheUtil.put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 }

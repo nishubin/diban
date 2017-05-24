@@ -21,6 +21,8 @@ public class DedeArchivesService {
 	private DedeArchivesMapper dedeArchivesMapper;
 	@Autowired
 	private DedeAddonarticleMapper dedeAddonarticleMapper;
+	@Autowired
+	private EhcacheUtil ehcacheUtil;
 	/**
 	 * 查询文章列表
 	 * @param archives
@@ -68,10 +70,10 @@ public class DedeArchivesService {
 			resp.setData(dedeArchives);
 			resp.setMsg("找不到要修改的用户");
 		}
-		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		SysConfigs sysConfigs = (SysConfigs) ehcacheUtil.get("com.Menu", "sysConfig");
 		sysConfigs.setDedeArchives(dedeArchivesMapper.selectAll());
-		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
-		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
+		ehcacheUtil.put("com.Menu", "sysConfig",sysConfigs);
+		ehcacheUtil.put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	/**
@@ -94,10 +96,10 @@ public class DedeArchivesService {
 			dedeAddonarticle.setBody(dedeArchives.getBody());
 			dedeAddonarticleMapper.insert(dedeAddonarticle);
 		}
-		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		SysConfigs sysConfigs = (SysConfigs) ehcacheUtil.get("com.Menu", "sysConfig");
 		sysConfigs.setDedeArchives(dedeArchivesMapper.selectAll());
-		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
-		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
+		ehcacheUtil.put("com.Menu", "sysConfig",sysConfigs);
+		ehcacheUtil.put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	
@@ -117,10 +119,10 @@ public class DedeArchivesService {
 			resp.setData(row);
 			resp.setMsg("找不到该数据");
 		}
-		SysConfigs sysConfigs = (SysConfigs) EhcacheUtil.getInstance().get("com.Menu", "sysConfig");
+		SysConfigs sysConfigs = (SysConfigs) ehcacheUtil.get("com.Menu", "sysConfig");
 		sysConfigs.setDedeArchives(dedeArchivesMapper.selectAll());
-		EhcacheUtil.getInstance().put("com.Menu", "sysConfig",sysConfigs);
-		EhcacheUtil.getInstance().put("com.Menu", "updateCache", "update");
+		ehcacheUtil.put("com.Menu", "sysConfig",sysConfigs);
+		ehcacheUtil.put("com.Menu", "updateCache", "update");
 		return resp;
 	}
 	/**
